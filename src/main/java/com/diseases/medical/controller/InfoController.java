@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/info")
 public class InfoController {
     private static Logger logger = Logger.getLogger(InfoController.class);
 
@@ -71,7 +71,6 @@ public class InfoController {
         String oldPassword = userDto.getOldPassword();
         String repeatPassword = userDto.getRepeatPassword();
         String password = userDto.getPassword();
-        String mobile = userDto.getMobile();
         String userType = userDto.getUserType();
         String name = userDto.getName();
         //重复密码验证
