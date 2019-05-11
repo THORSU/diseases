@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diseases.medical.dao.LoginDao">
+    <resultMap id="UserInfoResult" type="com.diseases.medical.pojo.User">
+        <id column="id" property="id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="status" column="status"/>
+        <result property="mobile" column="mobile"/>
+    </resultMap>
+    <insert id="addUser" parameterType="com.diseases.medical.pojo.User">
+        insert into `user` (id,name, password, status, mobile) value (#{id},#{name},#{password},#{status},#{mobile})
+    </insert>
+    <select id="getUser" parameterType="java.lang.String" resultType="java.lang.String">
+        select name from `user` where name = #{username}
+    </select>
+    <insert id="addDoctor" parameterType="com.diseases.medical.pojo.Doctor">
+        insert into `doctor` (id,name, password, status, mobile, photo) value (#{id},#{name},#{password},#{status},#{mobile},#{photo})
+    </insert>
+    <select id="getDoctor" parameterType="java.lang.String" resultType="java.lang.String">
+        select name from `doctor` where name = #{doctorname}
+    </select>
+    <select id="userLogin" parameterType="com.diseases.medical.pojo.User" resultType="com.diseases.medical.pojo.User">
+        select * from `user` where name = #{name}
+    </select>
+    <select id="doctorLogin" parameterType="com.diseases.medical.pojo.Doctor"
+            resultType="com.diseases.medical.pojo.Doctor">
+        select * from `doctor` where name = #{name}
+    </select>
+    <select id="adminLogin" parameterType="com.diseases.medical.pojo.Admin"
+            resultType="com.diseases.medical.pojo.Admin">
+        select * from `admin` where name = #{name}
+    </select>
+    <select id="getUserById" resultType="com.diseases.medical.pojo.User">
+        select * from `user` where id = #{userId}
+    </select>
+    <select id="getDoctorById" resultType="com.diseases.medical.pojo.Doctor">
+        select * from `doctor` where id = #{doctorId}
+    </select>
+    <select id="getUserByName" resultType="com.diseases.medical.pojo.User">
+        select * from `user` where name = #{name}
+    </select>
+    <select id="getDoctorByName" resultType="com.diseases.medical.pojo.Doctor">
+        select * from `doctor` where name = #{name}
+    </select>
+    <!--更新用户-->
+    <update id="updateInfo" parameterType="com.diseases.medical.pojo.User">
+        UPDATE `user`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="name!=null">`name`=#{name},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+    <update id="updateDoctor" parameterType="com.diseases.medical.pojo.Doctor">
+        UPDATE `doctor`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="name!=null">`name`=#{name},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="photo!=null">photo=#{photo},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <select id="getUserList" resultType="com.diseases.medical.pojo.User">
+        select * from `user` where status = 1
+    </select>
+
+    <select id="getDoctorList" resultType="com.diseases.medical.pojo.Doctor">
+        select * from `doctor` where status = 1
+    </select>
+</mapper>

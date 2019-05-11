@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.diseases.medical.dao.NoteDao">
+    <resultMap id="notecomment" type="com.diseases.medical.pojo.Note_Comment">
+        <result property="note_id" column="note_id"/>
+        <result property="id" column="id"/>
+        <result property="note_comment_id" column="note_comment_id"/>
+        <result property="note_comment_content" column="note_comment_content"/>
+        <result property="note_comment_release_time" column="note_comment_release_time"/>
+        <result property="user_type" column="user_type"/>
+    </resultMap>
+
+    <!--通过note_id获取评论-->
+    <select id="getNoteCommentsByNote_id" resultMap="notecomment">
+        select * from note_comment where note_id=#{note_id}
+    </select>
+    <!--添加评论-->
+    <insert id="saveComment" parameterType="com.diseases.medical.pojo.Note_Comment">
+        insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time,user_type)
+        values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time},#{user_type});
+    </insert>
+    <!--添加文章-->
+    <insert id="saveNote" parameterType="com.diseases.medical.pojo.Note">
+        insert into note (note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts,user_type)
+        values(#{note_id},#{id},#{release_time},#{note_type},#{note_content},#{note_likes},#{note_comment_counts},#{user_type});
+    </insert>
+</mapper>
