@@ -4,12 +4,14 @@ import com.diseases.medical.pojo.Doctor;
 import com.diseases.medical.pojo.User;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.service.NoteService;
+import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/manager")
@@ -22,6 +24,7 @@ public class ManagerController {
     @Autowired
     private NoteService noteService;
 
+    private Result result = new Result();
     /**
      * 用户列表
      *
@@ -29,7 +32,10 @@ public class ManagerController {
      */
     @GetMapping("/getUserList")
     public Object getUserList() {
-        return loginService.getUserList();
+        result.setCode("0");
+        result.setMsg("用户列表");
+        result.setData(loginService.getUserList());
+        return result;
     }
 
     /**
@@ -39,7 +45,10 @@ public class ManagerController {
      */
     @GetMapping("/getDoctorList")
     public Object getDoctorList() {
-        return loginService.getDoctorList();
+        result.setCode("0");
+        result.setMsg("医生列表");
+        result.setData(loginService.getDoctorList());
+        return result;
     }
 
     /**
@@ -49,41 +58,52 @@ public class ManagerController {
      */
     @GetMapping("/getNoteList")
     public Object getNoteList() {
-        return noteService.getNoteList();
+        result.setCode("0");
+        result.setMsg("医生列表");
+        result.setData(noteService.getNoteList());
+        return result;
     }
 
     /**
      * 删除用户
      *
-     * @param userId
      * @return
      */
     @GetMapping("/deleteUser")
-    public Object deleteUser(@RequestParam String userId) {
+    public Object deleteUser(HttpServletRequest request) {
+        String userId = request.getParameter("userId");
         User res = loginService.getUserById(userId);
-        if (res != null) {
-            return "无此用户";
+        if (res == null) {
+            result.setCode("1");
+            result.setMsg("无此用户");
+            return result;
         }
         res.setStatus("0");
         loginService.updateInfo(res);
-        return "success";
+        result.setCode("0");
+        result.setMsg("删除成功");
+        return result;
     }
 
     /**
      * 删除用户
      *
-     * @param doctorId
      * @return
      */
     @GetMapping("/deleteDoctor")
-    public Object deleteDoctor(@RequestParam String doctorId) {
+    public Object deleteDoctor(HttpServletRequest request) {
+        String doctorId = request.getParameter("doctorId");
         Doctor res = loginService.getDoctorById(doctorId);
-        if (res != null) {
-            return "无此用户";
+        if (res == null) {
+            result.setCode("1");
+            result.setMsg("无此用户");
+            return result;
         }
         res.setStatus("0");
         loginService.updateDoctor(res);
-        return "success";
+        result.setCode("0");
+        result.setMsg("删除成功");
+        return result;
     }
 
 }

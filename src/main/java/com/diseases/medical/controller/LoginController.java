@@ -24,7 +24,8 @@ public class LoginController {
     private static Logger logger = Logger.getLogger(LoginController.class);
     @Autowired
     private LoginService loginService;
-    Result result = new Result();
+
+    private Result result = new Result();
     private User user = new User();
     private Doctor doctor = new Doctor();
     private Admin admin = new Admin();
