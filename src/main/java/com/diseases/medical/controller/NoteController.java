@@ -7,11 +7,16 @@ import com.diseases.medical.pojo.vo.NoteVo;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.service.NoteService;
 import com.diseases.medical.utils.GenerateSequenceUtil;
+import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +31,8 @@ public class NoteController {
     @Autowired
     private LoginService loginService;
 
+    private Result result = new Result();
+
     /**
      * 获取所有帖子
      *
@@ -33,38 +40,44 @@ public class NoteController {
      */
     @GetMapping("/getPublicNote")
     public Object getPublicNote() {
-        return noteService.getNoteList();
+        result.setCode("0");
+        result.setMsg("帖子列表");
+        result.setData(noteService.getNoteList());
+        return result;
     }
 
 
     /**
      * 更新帖子点赞数
      *
-     * @param note
      * @return
      */
     @PostMapping("/updateLikes")
-    public Object updateLikes(@RequestBody Note note) {
-        String noteId = note.getNote_id();
-        String noteLikes = note.getNote_likes();
+    public Object updateLikes(HttpServletRequest request) {
+        String noteId = request.getParameter("note_id");
+        String noteLikes = request.getParameter("note_likes");
         try {
             Note n = noteService.getNoteById(noteId);
             n.setNote_likes(noteLikes);
             noteService.updateNote(n);
-            return "update success";
+            result.setCode("0");
+            result.setMsg("点赞成功");
+            return result;
         } catch (Exception e) {
-            return "0";
+            result.setCode("1");
+            result.setMsg("点赞失败");
+            return result;
         }
     }
 
     /**
      * 获取帖子详情
      *
-     * @param noteId
      * @return
      */
-    @GetMapping("/getSingleNote")
-    public Object getSingleNote(@RequestParam String noteId) {
+    @PostMapping("/getSingleNote")
+    public Object getSingleNote(HttpServletRequest request) {
+        String noteId = request.getParameter("note_id");
         NoteVo noteVo = new NoteVo();
         try {
             Note note = noteService.getNoteById(noteId);
@@ -117,30 +130,34 @@ public class NoteController {
             noteVo.setNote_likes(note.getNote_likes());
             //评论列表
             noteVo.setList(list);
-            return noteVo;
+            result.setCode("0");
+            result.setMsg("帖子列表");
+            result.setData(noteVo);
+            return result;
         } catch (Exception e) {
-            return "未知异常";
+            result.setCode("1");
+            result.setMsg("异常");
+            return result;
         }
     }
 
     /**
      * 发评论
      *
-     * @param note_comment
      * @return
      */
     @PostMapping("/releaseComment")
-    public Object releaseComment(@RequestBody Note_Comment note_comment) {
+    public Object releaseComment(HttpServletRequest request) {
         //评论内容
-        String note_comment_content = note_comment.getNote_comment_content();
+        String note_comment_content = request.getParameter("note_comment_content");
         //评论id
-        String note_id = note_comment.getNote_id();
+        String note_id = request.getParameter("note_id");
         //评论时间
-        String release_time = note_comment.getNote_comment_release_time();
+        String release_time = request.getParameter("release_time");
         //评论人
-        String id = note_comment.getId();
+        String id = request.getParameter("id");
         //评论人类型
-        String type = note_comment.getUser_type();
+        String type = request.getParameter("user_type");
 
         try {
             Note n = noteService.getNoteById(note_id);
@@ -155,30 +172,33 @@ public class NoteController {
             //评论数+1
             n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
             noteService.updateNote(n);
-            return "success";
+            result.setCode("0");
+            result.setMsg("评论成功");
+            return result;
         } catch (Exception e) {
-            return "fail";
+            result.setCode("0");
+            result.setMsg("评论失败");
+            return result;
         }
     }
 
     /**
      * 发帖子
      *
-     * @param note
      * @return
      */
     @PostMapping("/ReleaseNote")
-    public Object ReleaseNote(@RequestBody Note note) {
+    public Object ReleaseNote(HttpServletRequest request) {
         //发帖人id
-        String id = note.getId();
+        String id = request.getParameter("id");
         //帖子内容
-        String note_content = note.getNote_content();
+        String note_content = request.getParameter("note_content");
         //发帖人类型
-        String user_type = note.getUser_type();
+        String user_type = request.getParameter("user_type");
         //发帖时间
-        String release_time = note.getRelease_time();
+        String release_time = request.getParameter("release_time");
         //帖子类型
-        String type = note.getNote_type();
+        String type = request.getParameter("note_type");
         Note nt = new Note();
         nt.setNote_id("note" + GenerateSequenceUtil.generateSequenceNo());
         nt.setId(id);
@@ -191,8 +211,12 @@ public class NoteController {
         int res = noteService.saveNote(nt);
         logger.info("帖子基本信息插入成功！");
         if (res == 1) {
-            return "success";// 帖子发布成功
+            result.setCode("0");
+            result.setMsg("发帖成功");
+            return result;
         }
-        return "fail";
+        result.setCode("1");
+        result.setMsg("发帖失败");
+        return result;
     }
 }

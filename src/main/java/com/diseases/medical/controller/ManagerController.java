@@ -59,7 +59,7 @@ public class ManagerController {
     @GetMapping("/getNoteList")
     public Object getNoteList() {
         result.setCode("0");
-        result.setMsg("医生列表");
+        result.setMsg("帖子列表");
         result.setData(noteService.getNoteList());
         return result;
     }
