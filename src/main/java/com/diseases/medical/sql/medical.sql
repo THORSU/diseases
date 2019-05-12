@@ -73,3 +73,42 @@ CREATE TABLE `note_comment`
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
+
+# 病例表
+DROP TABLE IF EXISTS `cases`;
+CREATE TABLE `cases`
+(
+    `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
+    `symptomsName` VARCHAR(255) NULL COMMENT '病例名',
+    `symptoms`     VARCHAR(255) NULL COMMENT '病例症状',
+    `prevention`   VARCHAR(255) NULL COMMENT '预防方案'
+) ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+# 常见病
+DROP TABLE IF EXISTS `diseases`;
+CREATE TABLE `diseases`
+(
+    `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
+    `diseasesName` VARCHAR(255) NULL COMMENT '病名',
+    `diseases`     VARCHAR(255) NULL COMMENT '病名症状',
+    `prevention`   VARCHAR(255) NULL COMMENT '预防方案'
+) ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
+
+# 病例主表
+DROP TABLE IF EXISTS `usercases`;
+CREATE TABLE `usercases`
+(
+    `id`        VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
+    `casesid`   VARCHAR(255) NULL COMMENT '病例id',
+    `patients`  VARCHAR(255) NULL COMMENT '患者名',
+    `symptoms`  VARCHAR(255) NULL COMMENT '患者症状',
+    `Among`     VARCHAR(255) NULL COMMENT '化验单',
+    `diagnosis` VARCHAR(255) NULL COMMENT '化验单',
+    `advice`    VARCHAR(255) NULL COMMENT '医嘱'
+) ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_unicode_ci;
