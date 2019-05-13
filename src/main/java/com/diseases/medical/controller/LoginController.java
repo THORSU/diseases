@@ -3,7 +3,6 @@ package com.diseases.medical.controller;
 import com.diseases.medical.pojo.Admin;
 import com.diseases.medical.pojo.Doctor;
 import com.diseases.medical.pojo.User;
-import com.diseases.medical.pojo.dto.UserDto;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.utils.GenerateSequenceUtil;
 import com.diseases.medical.utils.Result;
@@ -12,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,37 +40,16 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Object register(HttpServletRequest request) {
-        String savePath = "D:\\idea\\upload\\";
+        String savePath = "/root/diseases/upload/";
+        String sqlPath = "http://39.96.72.77:8080/images/";
         String username = request.getParameter("name");
         String password = request.getParameter("password");
-        String repeatPassword = request.getParameter("repeatPassword");
         String userType = request.getParameter("userType");
         String mobile = request.getParameter("mobile");
         //img
         String imgStr = request.getParameter("file");
         StringBuffer fileName = new StringBuffer();
         fileName.append(UUID.randomUUID().toString().replaceAll("-", ""));
-        if (StringUtils.isEmpty(imgStr)) {
-            result.setCode("1");
-            result.setMsg("file不可缺省");
-            return result;
-        } else if (imgStr.indexOf("data:image/png;") != -1) {
-            imgStr = imgStr.replace("data:image/png;base64,", "");
-            fileName.append(".png");
-        } else if (imgStr.indexOf("data:image/jpeg;") != -1) {
-            imgStr = imgStr.replace("data:image/jpeg;base64,", "");
-            fileName.append(".jpeg");
-        } else {
-            result.setCode("1");
-            result.setMsg("请选择.png.jpg格式的图片");
-            return result;
-        }
-        //重复密码验证
-        if (!repeatPassword.equals(password)) {
-            result.setCode("1");
-            result.setMsg("两次密码不一致");
-            return result;
-        }
         //用户注册
         if (("user").equals(userType)) {
             if (!StringUtils.isEmpty(loginService.getUser(username))) {
@@ -87,6 +64,7 @@ public class LoginController {
             user.setMobile(mobile);
             int res = loginService.addUser(user);
             User res1 = loginService.userLogin(user);
+            res1.setStatus("doctor");
             if (res == 1) {
                 logger.info(res);
                 result.setCode("0");
@@ -100,6 +78,21 @@ public class LoginController {
                 return result;
             }
         } else if (("doctor").equals(userType)) {
+            if (StringUtils.isEmpty(imgStr)) {
+                result.setCode("1");
+                result.setMsg("file不可缺省");
+                return result;
+            } else if (imgStr.indexOf("data:image/png;") != -1) {
+                imgStr = imgStr.replace("data:image/png;base64,", "");
+                fileName.append(".png");
+            } else if (imgStr.indexOf("data:image/jpeg;") != -1) {
+                imgStr = imgStr.replace("data:image/jpeg;base64,", "");
+                fileName.append(".jpeg");
+            } else {
+                result.setCode("1");
+                result.setMsg("请选择.png.jpg格式的图片");
+                return result;
+            }
             if (!StringUtils.isEmpty(loginService.getDoctor(username))) {
                 result.setCode("1");
                 result.setMsg("已注册");
@@ -120,10 +113,10 @@ public class LoginController {
             doctor.setPassword(password);
             doctor.setStatus("1");
             doctor.setMobile(mobile);
-            doctor.setPhoto(savePath + fileName.toString());
+            doctor.setPhoto(sqlPath + fileName.toString());
             int res = loginService.addDoctor(doctor);
             Doctor res1 = loginService.doctorLogin(doctor);
-
+            res1.setStatus("doctor");
             if (res == 1) {
                 logger.info(res);
                 result.setCode("0");
@@ -148,7 +141,7 @@ public class LoginController {
      *
      * @return
      */
-    @PostMapping("login")
+    @PostMapping("/login")
     public Object login(HttpServletRequest request) {
         String userType = request.getParameter("userType");
         String username = request.getParameter("name");
@@ -231,22 +224,14 @@ public class LoginController {
     /**
      * 忘记密码
      *
-     * @param userDto
      * @return
      */
-    @PostMapping("forgetpwd")
-    public Object forgetpwd(@RequestBody UserDto userDto) {
-        String username = userDto.getName();
-        String password = userDto.getPassword();
-        String repeatPassword = userDto.getRepeatPassword();
-        String userType = userDto.getUserType();
-        String mobile = userDto.getMobile();
-        //确认两次输入密码一致
-        if (!password.equals(repeatPassword)) {
-            result.setCode("1");
-            result.setMsg("两次密码不一致");
-            return result;
-        }
+    @PostMapping("/forgetpwd")
+    public Object forgetpwd(HttpServletRequest request) {
+        String username = request.getParameter("name");
+        String password = request.getParameter("password");
+        String userType = request.getParameter("userType");
+        String mobile = request.getParameter("mobile");
         if (("user").equals(userType)) {
             user.setName(username);
             User res = loginService.userLogin(user);//根据用户名查找用户
