@@ -7,6 +7,7 @@ import com.diseases.medical.pojo.dto.UserDto;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.utils.GenerateSequenceUtil;
 import com.diseases.medical.utils.Result;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/login")
@@ -37,11 +42,31 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Object register(HttpServletRequest request) {
+        String savePath = "D:\\idea\\upload\\";
         String username = request.getParameter("name");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         String userType = request.getParameter("userType");
         String mobile = request.getParameter("mobile");
+        //img
+        String imgStr = request.getParameter("file");
+        StringBuffer fileName = new StringBuffer();
+        fileName.append(UUID.randomUUID().toString().replaceAll("-", ""));
+        if (StringUtils.isEmpty(imgStr)) {
+            result.setCode("1");
+            result.setMsg("file不可缺省");
+            return result;
+        } else if (imgStr.indexOf("data:image/png;") != -1) {
+            imgStr = imgStr.replace("data:image/png;base64,", "");
+            fileName.append(".png");
+        } else if (imgStr.indexOf("data:image/jpeg;") != -1) {
+            imgStr = imgStr.replace("data:image/jpeg;base64,", "");
+            fileName.append(".jpeg");
+        } else {
+            result.setCode("1");
+            result.setMsg("请选择.png.jpg格式的图片");
+            return result;
+        }
         //重复密码验证
         if (!repeatPassword.equals(password)) {
             result.setCode("1");
@@ -80,11 +105,22 @@ public class LoginController {
                 result.setMsg("已注册");
                 return result;
             }
+            File file = new File(savePath, fileName.toString());
+            byte[] fileBytes = Base64.getDecoder().decode(imgStr);
+            try {
+                FileUtils.writeByteArrayToFile(file, fileBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                result.setCode("1");
+                result.setMsg("保存失败");
+                return result;
+            }
             doctor.setId("doctor" + GenerateSequenceUtil.generateSequenceNo());
             doctor.setName(username);
             doctor.setPassword(password);
             doctor.setStatus("1");
             doctor.setMobile(mobile);
+            doctor.setPhoto(savePath + fileName.toString());
             int res = loginService.addDoctor(doctor);
             Doctor res1 = loginService.doctorLogin(doctor);
 
@@ -253,4 +289,5 @@ public class LoginController {
             return result;
         }
     }
+
 }

@@ -3,6 +3,7 @@ package com.diseases.medical.service;
 import com.diseases.medical.pojo.Admin;
 import com.diseases.medical.pojo.Doctor;
 import com.diseases.medical.pojo.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -52,4 +53,7 @@ public interface LoginService {
 
     //获取医生列表
     List<Doctor> getDoctorList();
+
+    //图片上传
+    MultipartFile base64toMultipart(String data, String fileName);
 }
