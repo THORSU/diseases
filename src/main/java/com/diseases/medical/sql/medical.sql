@@ -106,8 +106,8 @@ CREATE TABLE `usercases`
     `casesid`   VARCHAR(255) NULL COMMENT '病例id',
     `patients`  VARCHAR(255) NULL COMMENT '患者名',
     `symptoms`  VARCHAR(255) NULL COMMENT '患者症状',
-    `Among`     VARCHAR(255) NULL COMMENT '化验单',
-    `diagnosis` VARCHAR(255) NULL COMMENT '化验单',
+    `among`     VARCHAR(255) NULL COMMENT '化验单',
+    `diagnosis` VARCHAR(255) NULL COMMENT '病情诊断',
     `advice`    VARCHAR(255) NULL COMMENT '医嘱'
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
