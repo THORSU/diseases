@@ -4,12 +4,17 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 病例主表
+ */
 @Data
 public class Usercases implements Serializable {
     //主键
     private String id;
     //病例id
     private String casesid;
+    //标题
+    private String title;
     //患者名
     private String patients;
     //患者症状

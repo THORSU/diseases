@@ -13,6 +13,8 @@ public class Note implements Serializable {
     private String id;
     //发布时间
     private String release_time;
+    //标题
+    private String title;
     //文章类型
     private String note_type;
     //文章内容

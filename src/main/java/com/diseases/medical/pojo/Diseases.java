@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * 常见病
+ */
 @Data
 public class Diseases implements Serializable {
     //主键

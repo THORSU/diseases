@@ -47,6 +47,7 @@ CREATE TABLE `note`
 (
     `note_id`             varchar(24) COLLATE utf8_unicode_ci NOT NULL,
     `id`                  varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+    `title`               varchar(24)                         NULL,
     `release_time`        varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
     `note_type`           varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL,
     `note_content`        varchar(20000) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -55,7 +56,6 @@ CREATE TABLE `note`
     `user_type`           varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL,
     PRIMARY KEY (`id`, `note_id`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
 
@@ -75,16 +75,16 @@ CREATE TABLE `note_comment`
   COLLATE = utf8_unicode_ci;
 
 # 病例表
-DROP TABLE IF EXISTS `cases`;
-CREATE TABLE `cases`
-(
-    `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
-    `symptomsName` VARCHAR(255) NULL COMMENT '病例名',
-    `symptoms`     VARCHAR(255) NULL COMMENT '病例症状',
-    `prevention`   VARCHAR(255) NULL COMMENT '预防方案'
-) ENGINE = MyISAM
-  DEFAULT CHARSET = utf8
-  COLLATE = utf8_unicode_ci;
+# DROP TABLE IF EXISTS `cases`;
+# CREATE TABLE `cases`
+# (
+#     `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
+#     `symptomsName` VARCHAR(255) NULL COMMENT '病例名',
+#     `symptoms`     VARCHAR(255) NULL COMMENT '病例症状',
+#     `prevention`   VARCHAR(255) NULL COMMENT '预防方案'
+# ) ENGINE = MyISAM
+#   DEFAULT CHARSET = utf8
+#   COLLATE = utf8_unicode_ci;
 
 # 常见病
 DROP TABLE IF EXISTS `diseases`;
@@ -104,6 +104,7 @@ CREATE TABLE `usercases`
 (
     `id`        VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
     `casesid`   VARCHAR(255) NULL COMMENT '病例id',
+    `title`     VARCHAR(255) NULL COMMENT '标题',
     `patients`  VARCHAR(255) NULL COMMENT '患者名',
     `symptoms`  VARCHAR(255) NULL COMMENT '患者症状',
     `among`     VARCHAR(255) NULL COMMENT '化验单',

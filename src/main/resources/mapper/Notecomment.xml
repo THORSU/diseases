@@ -23,7 +23,7 @@
     </insert>
     <!--添加文章-->
     <insert id="saveNote" parameterType="com.diseases.medical.pojo.Note">
-        insert into note (note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts,user_type)
-        values(#{note_id},#{id},#{release_time},#{note_type},#{note_content},#{note_likes},#{note_comment_counts},#{user_type});
+        insert into note (note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts,user_type,title)
+        values(#{note_id},#{id},#{release_time},#{note_type},#{note_content},#{note_likes},#{note_comment_counts},#{user_type},#{title});
     </insert>
 </mapper>
