@@ -39,6 +39,9 @@
     <select id="getDoctorById" resultType="com.diseases.medical.pojo.Doctor">
         select * from `doctor` where id = #{doctorId}
     </select>
+    <select id="getAdminById" resultType="com.diseases.medical.pojo.Admin">
+        select * from `admin` where id = #{adminId}
+    </select>
     <select id="getUserByName" resultType="com.diseases.medical.pojo.User">
         select * from `user` where name = #{name}
     </select>

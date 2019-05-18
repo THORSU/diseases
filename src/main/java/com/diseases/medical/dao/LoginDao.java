@@ -38,6 +38,9 @@ public interface LoginDao {
     //根据医生的id获取发起人的姓名
     Doctor getDoctorById(@Param("doctorId") String doctorId);
 
+    //根据管理员的id获取发起人的姓名
+    Admin getAdminById(@Param("adminId") String adminId);
+
     //根据用户名获得用户详细信息
     User getUserByName(@Param("name") String name);
 
@@ -55,4 +58,6 @@ public interface LoginDao {
 
     //获取医生列表
     List<Doctor> getDoctorList();
+
+
 }

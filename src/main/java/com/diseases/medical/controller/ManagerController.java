@@ -106,4 +106,24 @@ public class ManagerController {
         return result;
     }
 
+    /**
+     * 审核医生
+     *
+     * @return
+     */
+    @GetMapping("/auditDoctor")
+    public Object auditDoctor(HttpServletRequest request) {
+        String doctorId = request.getParameter("doctorId");
+        Doctor res = loginService.getDoctorById(doctorId);
+        if (res == null) {
+            result.setCode("1");
+            result.setMsg("无此用户");
+            return result;
+        }
+        res.setStatus("1");
+        loginService.updateDoctor(res);
+        result.setCode("0");
+        result.setMsg("审核成功");
+        return result;
+    }
 }

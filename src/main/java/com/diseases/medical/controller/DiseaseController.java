@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @RestController
 @RequestMapping("/disease")
@@ -33,7 +32,6 @@ public class DiseaseController {
     //获取所有病人病例
     @RequestMapping("/getUsercase")
     public Object getUsercase() {
-        List<Usercases> usercases = diseaseService.getUsercase();
         result.setCode("0");
         result.setMsg("病人病例列表");
         result.setData(diseaseService.getUsercase());

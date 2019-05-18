@@ -66,6 +66,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public Admin getAdminById(String adminId) {
+        return loginDao.getAdminById(adminId);
+    }
+
+    @Override
     public User getUserByName(String name) {
         return loginDao.getUserByName(name);
     }

@@ -55,11 +55,12 @@ public class NoteController {
      */
     @PostMapping("/updateLikes")
     public Object updateLikes(HttpServletRequest request) {
+        //帖子id
         String noteId = request.getParameter("note_id");
-        String noteLikes = request.getParameter("note_likes");
         try {
             Note n = noteService.getNoteById(noteId);
-            n.setNote_likes(noteLikes);
+            Integer num = Integer.parseInt(n.getNote_likes()) + 1;
+            n.setNote_likes(String.valueOf(num));
             noteService.updateNote(n);
             result.setCode("0");
             result.setMsg("点赞成功");
@@ -92,6 +93,9 @@ public class NoteController {
             } else if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("doctor")) {
                 name_type = "医生";
                 name = loginService.getDoctorById(note.getId()).getName();
+            } else if (!StringUtils.isEmpty(note.getId()) && note.getUser_type().equals("admin")) {
+                name_type = "管理员";
+                name = loginService.getAdminById(note.getId()).getName();
             }
             //获取评论
             List<Note_Comment> listComment = noteService.getNoteCommentsByNote_id(noteId);
@@ -108,6 +112,9 @@ public class NoteController {
                 } else if (!StringUtils.isEmpty(listComment.get(i).getId()) && listComment.get(i).getUser_type().equals("doctor")) {
                     listComment_type = "医生";
                     commentName = loginService.getDoctorById(listComment.get(i).getId()).getName();
+                } else if (!StringUtils.isEmpty(listComment.get(i).getId()) && listComment.get(i).getUser_type().equals("admin")) {
+                    listComment_type = "管理员";
+                    commentName = loginService.getAdminById(listComment.get(i).getId()).getName();
                 }
                 noteCommentVo.setCommentName(commentName);
                 noteCommentVo.setListComment_type(listComment_type);
@@ -115,6 +122,10 @@ public class NoteController {
                 noteCommentVo.setNote_comment_release_time(listComment.get(i).getNote_comment_release_time());
                 list.add(noteCommentVo);
             }
+            //发帖人id
+            noteVo.setId(note.getId());
+            //发帖人的类型
+            noteVo.setUser_type(note.getUser_type());
             //帖子id
             noteVo.setNote_id(note.getNote_id());
             //帖子发表时间
@@ -153,10 +164,8 @@ public class NoteController {
     public Object releaseComment(HttpServletRequest request) {
         //评论内容
         String note_comment_content = request.getParameter("note_comment_content");
-        //评论id
+        //贴子id
         String note_id = request.getParameter("note_id");
-        //评论时间
-        String release_time = request.getParameter("release_time");
         //评论人id
         String id = request.getParameter("id");
         //评论人类型
@@ -167,7 +176,7 @@ public class NoteController {
             Note_Comment nc = new Note_Comment();
             nc.setNote_comment_id("nc" + GenerateSequenceUtil.generateSequenceNo());
             nc.setNote_id(note_id);
-            nc.setNote_comment_release_time(release_time);
+            nc.setNote_comment_release_time(DataUtil.currentDate("yyyy-MM-dd  HH:mm:ss"));
             nc.setNote_comment_content(note_comment_content);
             nc.setUser_type(type);
             nc.setId(id);

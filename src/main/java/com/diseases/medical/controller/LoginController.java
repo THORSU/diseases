@@ -117,7 +117,8 @@ public class LoginController {
             doctor.setId("doctor" + GenerateSequenceUtil.generateSequenceNo());
             doctor.setName(username);
             doctor.setPassword(password);
-            doctor.setStatus("1");
+            //默认不能登录 需审核
+            doctor.setStatus("0");
             doctor.setMobile(mobile);
             doctor.setPhoto(sqlPath + fileName.toString());
             int res = loginService.addDoctor(doctor);
@@ -156,6 +157,7 @@ public class LoginController {
             user.setName(username);
             user.setPassword(password);
             User res = loginService.userLogin(user);
+            res.setStatus("user");
             if (null != res) {
                 if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
                     result.setMsg("登录成功");
@@ -180,6 +182,7 @@ public class LoginController {
             doctor.setName(username);
             doctor.setPassword(password);
             Doctor res = loginService.doctorLogin(doctor);
+            res.setStatus("doctor");
             if (null != res) {
                 if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
                     result.setMsg("登录成功");
@@ -187,7 +190,7 @@ public class LoginController {
                     result.setData(res);
                     return result;
                 } else if (("0").equals(res.getStatus())) {
-                    result.setMsg("已删除");
+                    result.setMsg("已删除或审核未通过");
                     result.setCode("1");
                     return result;
                 } else {
@@ -204,6 +207,7 @@ public class LoginController {
             admin.setName(username);
             admin.setPassword(password);
             Admin res = loginService.adminLogin(admin);
+            res.setStatus("admin");
             if (null != res) {
                 if (res.getPassword().equals(password)) {
                     result.setMsg("登录成功");
