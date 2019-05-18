@@ -6,6 +6,7 @@ import com.diseases.medical.pojo.vo.NoteCommentVo;
 import com.diseases.medical.pojo.vo.NoteVo;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.service.NoteService;
+import com.diseases.medical.utils.DataUtil;
 import com.diseases.medical.utils.GenerateSequenceUtil;
 import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
@@ -128,6 +129,8 @@ public class NoteController {
             noteVo.setNote_comment_counts(note.getNote_comment_counts());
             //帖子点赞数
             noteVo.setNote_likes(note.getNote_likes());
+            //标题
+            noteVo.setTitle(note.getTitle());
             //评论列表
             noteVo.setList(list);
             result.setCode("0");
@@ -154,7 +157,7 @@ public class NoteController {
         String note_id = request.getParameter("note_id");
         //评论时间
         String release_time = request.getParameter("release_time");
-        //评论人
+        //评论人id
         String id = request.getParameter("id");
         //评论人类型
         String type = request.getParameter("user_type");
@@ -197,15 +200,13 @@ public class NoteController {
         String note_content = request.getParameter("note_content");
         //发帖人类型
         String user_type = request.getParameter("user_type");
-        //发帖时间
-        String release_time = request.getParameter("release_time");
         //帖子类型
         String type = request.getParameter("note_type");
         Note nt = new Note();
         nt.setNote_id("note" + GenerateSequenceUtil.generateSequenceNo());
         nt.setId(id);
         nt.setTitle(title);
-        nt.setRelease_time(release_time);
+        nt.setRelease_time(DataUtil.currentDate("yyyy-MM-dd  HH:mm:ss"));
         nt.setNote_type(type);
         nt.setNote_comment_counts("0");
         nt.setNote_likes("0");

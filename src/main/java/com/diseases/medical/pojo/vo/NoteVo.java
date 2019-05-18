@@ -13,6 +13,8 @@ public class NoteVo {
     private String id;
     //发起人姓名
     private String name;
+    //帖子标题
+    private String title;
     //发布时间
     private String release_time;
     //文章类型
