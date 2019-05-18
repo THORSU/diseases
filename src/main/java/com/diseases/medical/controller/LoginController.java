@@ -9,6 +9,7 @@ import com.diseases.medical.utils.Result;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,13 @@ public class LoginController {
     private LoginService loginService;
 
     private Result result = new Result();
+
+    @Value("${save_path}")
+    private String savePath;
+
+    @Value("${sql_path}")
+    private String sqlPath;
+
     private User user = new User();
     private Doctor doctor = new Doctor();
     private Admin admin = new Admin();
@@ -40,8 +48,6 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Object register(HttpServletRequest request) {
-        String savePath = "/root/diseases/upload/";
-        String sqlPath = "http://39.96.72.77:8080/images/";
         String username = request.getParameter("name");
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");

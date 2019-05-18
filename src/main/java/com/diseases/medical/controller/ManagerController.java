@@ -86,7 +86,7 @@ public class ManagerController {
     }
 
     /**
-     * 删除用户
+     * 删除医生
      *
      * @return
      */

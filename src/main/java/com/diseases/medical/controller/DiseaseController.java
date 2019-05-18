@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/disease")
@@ -19,8 +19,7 @@ public class DiseaseController {
     @Autowired
     private DiseaseService diseaseService;
 
-    @Resource
-    private Result result;
+    private Result result = new Result();
 
     //获取所有病例
     @RequestMapping("/getDiseases")
@@ -34,9 +33,10 @@ public class DiseaseController {
     //获取所有病人病例
     @RequestMapping("/getUsercase")
     public Object getUsercase() {
+        List<Usercases> usercases = diseaseService.getUsercase();
         result.setCode("0");
         result.setMsg("病人病例列表");
-        result.setData(diseaseService.getDisease());
+        result.setData(diseaseService.getUsercase());
         return result;
     }
 

@@ -191,6 +191,8 @@ public class NoteController {
     public Object ReleaseNote(HttpServletRequest request) {
         //发帖人id
         String id = request.getParameter("id");
+        //帖子标题
+        String title = request.getParameter("title");
         //帖子内容
         String note_content = request.getParameter("note_content");
         //发帖人类型
@@ -202,6 +204,7 @@ public class NoteController {
         Note nt = new Note();
         nt.setNote_id("note" + GenerateSequenceUtil.generateSequenceNo());
         nt.setId(id);
+        nt.setTitle(title);
         nt.setRelease_time(release_time);
         nt.setNote_type(type);
         nt.setNote_comment_counts("0");

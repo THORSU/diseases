@@ -21,6 +21,8 @@ public class InfoController {
     private LoginService loginService;
 
     private Result result = new Result();
+    ;
+
     private User user = new User();
     private Doctor doctor = new Doctor();
 
