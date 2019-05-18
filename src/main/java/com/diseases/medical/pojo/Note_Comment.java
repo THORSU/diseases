@@ -18,4 +18,6 @@ public class Note_Comment implements Serializable {
     private String note_comment_content;
     //评论时间
     private String note_comment_release_time;
+    //状态
+    private String status;
 }

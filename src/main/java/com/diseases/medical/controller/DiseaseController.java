@@ -18,11 +18,12 @@ public class DiseaseController {
     @Autowired
     private DiseaseService diseaseService;
 
-    private Result result = new Result();
+    private Result result;
 
     //获取所有病例
     @RequestMapping("/getDiseases")
     public Object getDiseases() {
+        result = new Result();
         result.setCode("0");
         result.setMsg("病例列表");
         result.setData(diseaseService.getDisease());
@@ -32,6 +33,7 @@ public class DiseaseController {
     //获取所有病人病例
     @RequestMapping("/getUsercase")
     public Object getUsercase() {
+        result = new Result();
         result.setCode("0");
         result.setMsg("病人病例列表");
         result.setData(diseaseService.getUsercase());
@@ -41,6 +43,7 @@ public class DiseaseController {
     //根据病例id获取病例
     @RequestMapping("/getDiseasesById")
     public Object getDiseasesById(HttpServletRequest request) {
+        result = new Result();
         String id = request.getParameter("id");
         Diseases usercases = diseaseService.getDiseaseById(id);
         result.setCode("0");
@@ -52,6 +55,7 @@ public class DiseaseController {
     //根据用户id获取病例
     @RequestMapping("/getUsercaseById")
     public Object getUsercaseById(HttpServletRequest request) {
+        result = new Result();
         String id = request.getParameter("id");
         Usercases usercases = diseaseService.getUsercaseById(id);
         result.setCode("0");

@@ -20,8 +20,7 @@ public class InfoController {
     @Autowired
     private LoginService loginService;
 
-    private Result result = new Result();
-    ;
+    private Result result;
 
     private User user = new User();
     private Doctor doctor = new Doctor();
@@ -33,6 +32,7 @@ public class InfoController {
      */
     @PostMapping("/updateInfo")
     public Object updateInfo(HttpServletRequest request) {
+        result = new Result();
         String name = request.getParameter("name");
         String nikeName = request.getParameter("nickname");
         String userType = request.getParameter("userType");
@@ -81,6 +81,7 @@ public class InfoController {
      */
     @PostMapping("/changePwd")
     public Object changePwd(HttpServletRequest request) {
+        result = new Result();
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
@@ -157,6 +158,7 @@ public class InfoController {
      */
     @PostMapping("/getUserInfo")
     public Object getUserInfo(HttpServletRequest request) {
+        result = new Result();
         String name = request.getParameter("name");
         String type = request.getParameter("userType");
         if (("user").equals(type)) {

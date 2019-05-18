@@ -29,7 +29,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    private Result result = new Result();
+    private Result result;
 
     @Value("${save_path}")
     private String savePath;
@@ -48,6 +48,7 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Object register(HttpServletRequest request) {
+        result = new Result();
         String username = request.getParameter("name");
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");
@@ -150,6 +151,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public Object login(HttpServletRequest request) {
+        result = new Result();
         String userType = request.getParameter("userType");
         String username = request.getParameter("name");
         String password = request.getParameter("password");
@@ -238,6 +240,7 @@ public class LoginController {
      */
     @PostMapping("/forgetpwd")
     public Object forgetpwd(HttpServletRequest request) {
+        result = new Result();
         String username = request.getParameter("name");
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");

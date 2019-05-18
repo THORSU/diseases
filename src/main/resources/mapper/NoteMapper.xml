@@ -13,12 +13,13 @@
         <result property="note_comment_counts" column="note_comment_counts"/>
         <result property="user_type" column="user_type"/>
         <result property="title" column="title"/>
+        <result property="status" column="status"/>
     </resultMap>
     <select id="getNoteByType" resultMap="noteResult">
-        select note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts,user_type,title from note where note_type=#{note_type}
+        select *  from note where note_type=#{note_type} and status = 1
     </select>
     <select id="getNoteById" resultMap="noteResult">
-        select * from `note` where note_id = #{note_id}
+        select * from `note` where note_id = #{note_id}  and status = 1
     </select>
 
     <!--更新文章-->
@@ -32,12 +33,16 @@
             <if test="note_likes!=null">note_likes=#{note_likes},</if>
             <if test="note_comment_counts!=null">note_comment_counts=#{note_comment_counts},</if>
             <if test="user_type!=null">user_type=#{user_type},</if>
-            <if test="title!=null">title=#{title}</if>
+            <if test="title!=null">title=#{title},</if>
+            <if test="status!=null">status=#{status}</if>
         </trim>
-        WHERE note_id=#{note_id}
+        WHERE note_id=#{note_id} and status = 1
     </update>
 
     <select id="getNoteList" resultMap="noteResult">
-        select * from `note`
+        select * from `note` where status = 1
     </select>
+    <update id="delComment">
+        update `note_comment` set status = 0 where note_comment_id = #{commentId}
+    </update>
 </mapper>

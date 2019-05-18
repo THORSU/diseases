@@ -25,4 +25,6 @@ public class Note implements Serializable {
     private String user_type;
     //评论数
     private String note_comment_counts;
+    //状态
+    private String status;
 }

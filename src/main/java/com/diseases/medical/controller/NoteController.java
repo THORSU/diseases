@@ -32,7 +32,7 @@ public class NoteController {
     @Autowired
     private LoginService loginService;
 
-    private Result result = new Result();
+    private Result result;
 
     /**
      * 获取所有帖子
@@ -41,6 +41,7 @@ public class NoteController {
      */
     @GetMapping("/getPublicNote")
     public Object getPublicNote() {
+        result = new Result();
         result.setCode("0");
         result.setMsg("帖子列表");
         result.setData(noteService.getNoteList());
@@ -55,6 +56,7 @@ public class NoteController {
      */
     @PostMapping("/updateLikes")
     public Object updateLikes(HttpServletRequest request) {
+        result = new Result();
         //帖子id
         String noteId = request.getParameter("note_id");
         try {
@@ -79,6 +81,7 @@ public class NoteController {
      */
     @PostMapping("/getSingleNote")
     public Object getSingleNote(HttpServletRequest request) {
+        result = new Result();
         String noteId = request.getParameter("note_id");
         NoteVo noteVo = new NoteVo();
         try {
@@ -162,6 +165,7 @@ public class NoteController {
      */
     @PostMapping("/releaseComment")
     public Object releaseComment(HttpServletRequest request) {
+        result = new Result();
         //评论内容
         String note_comment_content = request.getParameter("note_comment_content");
         //贴子id
@@ -180,6 +184,7 @@ public class NoteController {
             nc.setNote_comment_content(note_comment_content);
             nc.setUser_type(type);
             nc.setId(id);
+            nc.setStatus("1");
             noteService.saveComment(nc);
             //评论数+1
             n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
@@ -201,6 +206,7 @@ public class NoteController {
      */
     @PostMapping("/ReleaseNote")
     public Object ReleaseNote(HttpServletRequest request) {
+        result = new Result();
         //发帖人id
         String id = request.getParameter("id");
         //帖子标题
@@ -221,6 +227,7 @@ public class NoteController {
         nt.setNote_likes("0");
         nt.setNote_content(note_content);
         nt.setUser_type(user_type);
+        nt.setStatus("1");
         int res = noteService.saveNote(nt);
         logger.info("帖子基本信息插入成功！");
         if (res == 1) {

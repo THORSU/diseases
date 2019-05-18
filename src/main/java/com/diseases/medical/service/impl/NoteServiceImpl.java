@@ -48,4 +48,19 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> getNoteList() {
         return noteDao.getNoteList();
     }
+
+    @Override
+    public List<Note_Comment> getNoteComments() {
+        return noteDao.getNoteComments();
+    }
+
+    @Override
+    public int delComment(String commentId) {
+        return noteDao.delComment(commentId);
+    }
+
+    @Override
+    public Note_Comment getNoteCommentById(String commentId) {
+        return noteDao.getNoteCommentById(commentId);
+    }
 }

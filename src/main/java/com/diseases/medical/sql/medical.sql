@@ -52,6 +52,7 @@ CREATE TABLE `note`
     `note_likes`          varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '点赞数',
     `note_comment_counts` varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '评论数',
     `user_type`           varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '发帖人类型',
+    `status`              varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '帖子状态',
     PRIMARY KEY (`id`, `note_id`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
@@ -67,6 +68,7 @@ CREATE TABLE `note_comment`
     `note_comment_content`      varchar(20000) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '评论内容',
     `note_comment_release_time` varchar(20) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '评论时间',
     `user_type`                 varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '用户类型',
+    `status`                    varchar(50) COLLATE utf8_unicode_ci    DEFAULT NULL COMMENT '评论状态',
     PRIMARY KEY (`note_comment_id`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8

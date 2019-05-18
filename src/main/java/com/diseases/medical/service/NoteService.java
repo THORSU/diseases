@@ -27,4 +27,14 @@ public interface NoteService {
 
     //获取帖子列表
     List<Note> getNoteList();
+
+    //获取所有评论
+    List<Note_Comment> getNoteComments();
+
+    //删除评论
+    int delComment(String commentId);
+
+    //获取某个评论
+    Note_Comment getNoteCommentById(String commentId);
+
 }
