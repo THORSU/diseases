@@ -14,7 +14,7 @@
         select * from `diseases` where id = #{id} and status = 1
     </select>
     <select id="getUsercase" resultType="com.diseases.medical.pojo.Usercases">
-        select * from `usercases`
+        select * from `usercases` and status = 1
     </select>
     <insert id="addUsecase" parameterType="com.diseases.medical.pojo.Usercases">
         insert into `usercases` (id, casesid, title, patients, symptoms, among, diagnosis, advice, status)
@@ -23,4 +23,13 @@
     <select id="getUsercaseById" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Usercases">
         select * from `usercases` where id = #{id} and status = 1
     </select>
+    <update id="delUsercases" parameterType="java.lang.String">
+        update `usercases` set status = 0 where id = #{id}
+    </update>
+    <select id="getUsercaseByCaseId" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Usercases">
+        select * from `usercases` where casesid = #{caseId} and status = 1
+    </select>
+    <update id="delDisease" parameterType="java.lang.String">
+        update `diseases` set status = 0 where id = #{id}
+    </update>
 </mapper>

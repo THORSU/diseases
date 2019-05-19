@@ -25,5 +25,12 @@ public interface DiseaseService {
     //获取某人详细病例
     Usercases getUsercaseById(String id);
 
+    //删除病人病例
+    int delUsercases(String id);
 
+    //查看某病例人数
+    List<Usercases> getUsercaseByCaseId(String caseId);
+
+    //删除病例
+    int delDisease(String id);
 }

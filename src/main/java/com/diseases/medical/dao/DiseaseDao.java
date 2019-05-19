@@ -3,6 +3,7 @@ package com.diseases.medical.dao;
 import com.diseases.medical.pojo.Diseases;
 import com.diseases.medical.pojo.Usercases;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,4 +26,13 @@ public interface DiseaseDao {
 
     //获取某人详细病例
     Usercases getUsercaseById(String id);
+
+    //删除病人病例
+    int delUsercases(String id);
+
+    //查看某病例人数
+    List<Usercases> getUsercaseByCaseId(@Param("caseId") String caseId);
+
+    //删除病例
+    int delDisease(String id);
 }

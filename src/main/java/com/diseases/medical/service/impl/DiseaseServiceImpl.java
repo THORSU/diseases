@@ -43,4 +43,19 @@ public class DiseaseServiceImpl implements DiseaseService {
     public Usercases getUsercaseById(String id) {
         return diseaseDao.getUsercaseById(id);
     }
+
+    @Override
+    public int delUsercases(String id) {
+        return diseaseDao.delUsercases(id);
+    }
+
+    @Override
+    public List<Usercases> getUsercaseByCaseId(String caseId) {
+        return diseaseDao.getUsercaseByCaseId(caseId);
+    }
+
+    @Override
+    public int delDisease(String id) {
+        return diseaseDao.delDisease(id);
+    }
 }

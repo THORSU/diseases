@@ -1,9 +1,7 @@
 package com.diseases.medical.controller;
 
-import com.diseases.medical.pojo.Doctor;
-import com.diseases.medical.pojo.Note;
-import com.diseases.medical.pojo.Note_Comment;
-import com.diseases.medical.pojo.User;
+import com.diseases.medical.pojo.*;
+import com.diseases.medical.service.DiseaseService;
 import com.diseases.medical.service.LoginService;
 import com.diseases.medical.service.NoteService;
 import com.diseases.medical.utils.Result;
@@ -28,6 +26,9 @@ public class ManagerController {
 
     @Autowired
     private NoteService noteService;
+
+    @Autowired
+    private DiseaseService diseaseService;
 
     private Result result;
 
@@ -227,6 +228,65 @@ public class ManagerController {
         if (res != 1) {
             result.setCode("1");
             result.setMsg("帖子删除失败");
+            return result;
+        }
+        result.setCode("0");
+        result.setMsg("删除成功");
+        return result;
+    }
+
+    /**
+     * 删除病人病例
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/delUsercases")
+    public Object delUsercases(HttpServletRequest request) {
+        result = new Result();
+        String id = request.getParameter("id");
+        Usercases usercases = diseaseService.getUsercaseById(id);
+        if (usercases == null) {
+            result.setCode("1");
+            result.setMsg("无此病人病例");
+            return result;
+        }
+        int res = diseaseService.delUsercases(id);
+        if (res != 1) {
+            result.setCode("1");
+            result.setMsg("删除失败");
+            return result;
+        }
+        result.setCode("0");
+        result.setMsg("删除成功");
+        return result;
+    }
+
+
+    /**
+     * 删除病人病例
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/delDisease")
+    public Object delDisease(HttpServletRequest request) {
+        result = new Result();
+        String id = request.getParameter("id");
+        Diseases diseases = diseaseService.getDiseaseById(id);
+        if (diseases == null) {
+            result.setCode("1");
+            result.setMsg("无此病例");
+            return result;
+        }
+        List<Usercases> usercases = diseaseService.getUsercaseByCaseId(diseases.getId());
+        for (int i = 0; i < usercases.size(); i++) {
+            diseaseService.delUsercases(usercases.get(i).getId());
+        }
+        int res = diseaseService.delDisease(id);
+        if (res != 1) {
+            result.setCode("1");
+            result.setMsg("删除失败");
             return result;
         }
         result.setCode("0");

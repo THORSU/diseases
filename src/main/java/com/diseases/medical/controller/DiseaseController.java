@@ -7,6 +7,7 @@ import com.diseases.medical.utils.GenerateSequenceUtil;
 import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class DiseaseController {
     private Result result;
 
     //获取所有病例
-    @RequestMapping("/getDiseases")
+    @GetMapping("/getDiseases")
     public Object getDiseases() {
         result = new Result();
         result.setCode("0");
@@ -33,7 +34,7 @@ public class DiseaseController {
     }
 
     //获取所有病人病例
-    @RequestMapping("/getUsercase")
+    @GetMapping("/getUsercase")
     public Object getUsercase() {
         result = new Result();
         result.setCode("0");
@@ -43,7 +44,7 @@ public class DiseaseController {
     }
 
     //根据病例id获取病例
-    @RequestMapping("/getDiseasesById")
+    @PostMapping("/getDiseasesById")
     public Object getDiseasesById(HttpServletRequest request) {
         result = new Result();
         String id = request.getParameter("id");
@@ -55,7 +56,7 @@ public class DiseaseController {
     }
 
     //根据用户id获取病例
-    @RequestMapping("/getUsercaseById")
+    @PostMapping("/getUsercaseById")
     public Object getUsercaseById(HttpServletRequest request) {
         result = new Result();
         String id = request.getParameter("id");
