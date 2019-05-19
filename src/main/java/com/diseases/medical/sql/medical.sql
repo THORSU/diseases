@@ -81,7 +81,8 @@ CREATE TABLE `diseases`
     `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
     `diseasesName` VARCHAR(255) NULL COMMENT '病名',
     `diseases`     VARCHAR(255) NULL COMMENT '病名症状',
-    `prevention`   VARCHAR(255) NULL COMMENT '预防方案'
+    `prevention`   VARCHAR(255) NULL COMMENT '预防方案',
+    `status`       VARCHAR(255) NULL COMMENT '状态'
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;
@@ -97,7 +98,8 @@ CREATE TABLE `usercases`
     `symptoms`  VARCHAR(255) NULL COMMENT '患者症状',
     `among`     VARCHAR(255) NULL COMMENT '化验单',
     `diagnosis` VARCHAR(255) NULL COMMENT '病情诊断',
-    `advice`    VARCHAR(255) NULL COMMENT '医嘱'
+    `advice`    VARCHAR(255) NULL COMMENT '医嘱',
+    `status`    VARCHAR(255) NULL COMMENT '状态'
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_unicode_ci;

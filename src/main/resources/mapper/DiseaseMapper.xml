@@ -4,23 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.diseases.medical.dao.DiseaseDao">
     <select id="getDisease" resultType="com.diseases.medical.pojo.Diseases">
-        select * from `diseases`
+        select * from `diseases` where status = 1
     </select>
     <insert id="addDisease" parameterType="com.diseases.medical.pojo.Diseases">
-        insert into `diseases` (id, diseasesName, diseases, prevention) values
-        (#{id},#{diseasesName},#{diseases},#{prevention})
+        insert into `diseases` (id, diseasesName, diseases, prevention,status) values
+        (#{id},#{diseasesName},#{diseases},#{prevention},#{status})
     </insert>
     <select id="getDiseaseById" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Diseases">
-        select * from `diseases` where id = #{id}
+        select * from `diseases` where id = #{id} and status = 1
     </select>
     <select id="getUsercase" resultType="com.diseases.medical.pojo.Usercases">
         select * from `usercases`
     </select>
     <insert id="addUsecase" parameterType="com.diseases.medical.pojo.Usercases">
-        insert into `usercases` (id, casesid, title, patients, symptoms, among, diagnosis, advice)
-        values (#{id},#{casesid},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice})
+        insert into `usercases` (id, casesid, title, patients, symptoms, among, diagnosis, advice, status)
+        values (#{id},#{casesid},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice},#{status})
     </insert>
     <select id="getUsercaseById" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Usercases">
-        select * from `usercases` where id = #{id}
+        select * from `usercases` where id = #{id} and status = 1
     </select>
 </mapper>

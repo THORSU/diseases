@@ -25,4 +25,6 @@ public class Usercases implements Serializable {
     private String diagnosis;
     //医嘱
     private String advice;
+    //状态
+    private String status;
 }

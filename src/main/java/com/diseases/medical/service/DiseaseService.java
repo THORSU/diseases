@@ -24,4 +24,6 @@ public interface DiseaseService {
 
     //获取某人详细病例
     Usercases getUsercaseById(String id);
+
+
 }
