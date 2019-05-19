@@ -19,5 +19,7 @@ public class Diseases implements Serializable {
     private String prevention;
     //状态
     private String status;
+    //创建时间
+    private String time;
 }
 

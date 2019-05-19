@@ -3,6 +3,7 @@ package com.diseases.medical.controller;
 import com.diseases.medical.pojo.Diseases;
 import com.diseases.medical.pojo.Usercases;
 import com.diseases.medical.service.DiseaseService;
+import com.diseases.medical.utils.DataUtil;
 import com.diseases.medical.utils.GenerateSequenceUtil;
 import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
@@ -82,6 +83,7 @@ public class DiseaseController {
         diseases1.setDiseasesName(diseasesName);
         diseases1.setPrevention(prevention);
         diseases1.setId("disease" + GenerateSequenceUtil.generateSequenceNo());
+        diseases1.setTime(DataUtil.currentDate("yyyy-MM-dd  HH:mm:ss"));
         diseases1.setStatus("1");
         int res = diseaseService.addDisease(diseases1);
         if (res != 1) {
@@ -121,6 +123,7 @@ public class DiseaseController {
         usercases.setSymptoms(symptoms);
         usercases.setDiagnosis(diagnosis);
         usercases.setStatus("1");
+        usercases.setTime(DataUtil.currentDate("yyyy-MM-dd  HH:mm:ss"));
         usercases.setId("uc" + GenerateSequenceUtil.generateSequenceNo());
         int res = diseaseService.addUsecase(usercases);
         if (res != 1) {

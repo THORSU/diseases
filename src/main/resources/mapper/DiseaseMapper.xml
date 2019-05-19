@@ -7,8 +7,8 @@
         select * from `diseases` where status = 1
     </select>
     <insert id="addDisease" parameterType="com.diseases.medical.pojo.Diseases">
-        insert into `diseases` (id, diseasesName, diseases, prevention,status) values
-        (#{id},#{diseasesName},#{diseases},#{prevention},#{status})
+        insert into `diseases` (id, diseasesName, diseases, prevention,status, time) values
+        (#{id},#{diseasesName},#{diseases},#{prevention},#{status}, #{time})
     </insert>
     <update id="editDisease" parameterType="com.diseases.medical.pojo.Diseases">
         update `diseases`
@@ -26,8 +26,8 @@
         select * from `usercases` where status = 1
     </select>
     <insert id="addUsecase" parameterType="com.diseases.medical.pojo.Usercases">
-        insert into `usercases` (id, title, patients, symptoms, among, diagnosis, advice, status)
-        values (#{id},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice},#{status})
+        insert into `usercases` (id, title, patients, symptoms, among, diagnosis, advice, status, time)
+        values (#{id},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice},#{status}, #{time})
     </insert>
     <update id="editUsecase" parameterType="com.diseases.medical.pojo.Usercases">
         update `usercases`
