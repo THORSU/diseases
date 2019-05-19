@@ -10,16 +10,37 @@
         insert into `diseases` (id, diseasesName, diseases, prevention,status) values
         (#{id},#{diseasesName},#{diseases},#{prevention},#{status})
     </insert>
+    <update id="editDisease" parameterType="com.diseases.medical.pojo.Diseases">
+        update `diseases`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="diseasesName!=null">diseasesName=#{diseasesName},</if>
+            <if test="diseases!=null">diseases=#{diseases},</if>
+            <if test="prevention!=null">`prevention`=#{prevention},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
     <select id="getDiseaseById" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Diseases">
         select * from `diseases` where id = #{id} and status = 1
     </select>
     <select id="getUsercase" resultType="com.diseases.medical.pojo.Usercases">
-        select * from `usercases` and status = 1
+        select * from `usercases` where status = 1
     </select>
     <insert id="addUsecase" parameterType="com.diseases.medical.pojo.Usercases">
-        insert into `usercases` (id, casesid, title, patients, symptoms, among, diagnosis, advice, status)
-        values (#{id},#{casesid},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice},#{status})
+        insert into `usercases` (id, title, patients, symptoms, among, diagnosis, advice, status)
+        values (#{id},#{title},#{patients},#{symptoms},#{among},#{diagnosis},#{advice},#{status})
     </insert>
+    <update id="editUsecase" parameterType="com.diseases.medical.pojo.Usercases">
+        update `usercases`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="patients!=null">patients=#{patients},</if>
+            <if test="symptoms!=null">symptoms=#{symptoms},</if>
+            <if test="among!=null">among=#{among},</if>
+            <if test="diagnosis!=null">diagnosis=#{diagnosis},</if>
+            <if test="advice!=null">advice=#{advice},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
     <select id="getUsercaseById" parameterType="java.lang.String" resultType="com.diseases.medical.pojo.Usercases">
         select * from `usercases` where id = #{id} and status = 1
     </select>

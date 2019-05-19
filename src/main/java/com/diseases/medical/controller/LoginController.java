@@ -119,7 +119,7 @@ public class LoginController {
             doctor.setName(username);
             doctor.setPassword(password);
             //默认不能登录 需审核
-            doctor.setStatus("0");
+            doctor.setStatus("2");
             doctor.setMobile(mobile);
             doctor.setPhoto(sqlPath + fileName.toString());
             int res = loginService.addDoctor(doctor);
@@ -192,7 +192,11 @@ public class LoginController {
                     result.setData(res);
                     return result;
                 } else if (("0").equals(res.getStatus())) {
-                    result.setMsg("已删除或审核未通过");
+                    result.setMsg("已删除");
+                    result.setCode("1");
+                    return result;
+                } else if (("2").equals(res.getStatus())) {
+                    result.setMsg("未审核");
                     result.setCode("1");
                     return result;
                 } else {

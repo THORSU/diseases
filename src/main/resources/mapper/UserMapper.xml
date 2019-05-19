@@ -78,6 +78,6 @@
     </select>
 
     <select id="getDoctorList" resultType="com.diseases.medical.pojo.Doctor">
-        select * from `doctor` where status = 1
+        select * from `doctor` where status != 0
     </select>
 </mapper>

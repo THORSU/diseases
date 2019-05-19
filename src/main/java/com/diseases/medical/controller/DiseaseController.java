@@ -99,7 +99,7 @@ public class DiseaseController {
     public Object addUsercases(HttpServletRequest request) {
         result = new Result();
         //常见病主键
-        String caseid = request.getParameter("caseid");
+//        String caseid = request.getParameter("caseid");
         //标题
         String title = request.getParameter("title");
         //患者名
@@ -115,7 +115,7 @@ public class DiseaseController {
         Usercases usercases = new Usercases();
         usercases.setAdvice(advice);
         usercases.setAmong(among);
-        usercases.setCasesid(caseid);
+//        usercases.setCasesid(caseid);
         usercases.setPatients(patients);
         usercases.setTitle(title);
         usercases.setSymptoms(symptoms);
@@ -130,6 +130,74 @@ public class DiseaseController {
         }
         result.setCode("0");
         result.setMsg("添加病人病例成功");
+        return result;
+    }
+
+    /**
+     * 编辑病例
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/editDisease")
+    public Object editDisease(HttpServletRequest request) {
+        result = new Result();
+        String id = request.getParameter("id");
+        //病名
+        String diseasesName = request.getParameter("diseasesName");
+        //症状
+        String diseases = request.getParameter("diseases");
+        //预防方案
+        String prevention = request.getParameter("prevention");
+        Diseases diseases1 = new Diseases();
+        diseases1.setId(id);
+        diseases1.setDiseases(diseases);
+        diseases1.setDiseasesName(diseasesName);
+        diseases1.setPrevention(prevention);
+        int res = diseaseService.editDisease(diseases1);
+        if (res != 1) {
+            result.setCode("1");
+            result.setMsg("修改病例失败");
+            return result;
+        }
+        result.setCode("0");
+        result.setMsg("修改病例成功");
+        return result;
+    }
+
+    //添加用户病例
+    @PostMapping("/editUsercases")
+    public Object editUsercases(HttpServletRequest request) {
+        result = new Result();
+        String id = request.getParameter("id");
+        //标题
+        String title = request.getParameter("title");
+        //患者名
+        String patients = request.getParameter("patients");
+        //症状
+        String symptoms = request.getParameter("symptoms");
+        //化验单
+        String among = request.getParameter("among");
+        //病情诊断
+        String diagnosis = request.getParameter("diagnosis");
+        //医嘱
+        String advice = request.getParameter("advice");
+        Usercases usercases = new Usercases();
+        usercases.setId(id);
+        usercases.setAdvice(advice);
+        usercases.setAmong(among);
+        usercases.setPatients(patients);
+        usercases.setTitle(title);
+        usercases.setSymptoms(symptoms);
+        usercases.setDiagnosis(diagnosis);
+        int res = diseaseService.editUsecase(usercases);
+        if (res != 1) {
+            result.setCode("1");
+            result.setMsg("修改病人病例失败");
+            return result;
+        }
+        result.setCode("0");
+        result.setMsg("修改病人病例成功");
         return result;
     }
 }

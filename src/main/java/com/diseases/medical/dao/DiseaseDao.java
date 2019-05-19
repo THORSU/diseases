@@ -15,6 +15,9 @@ public interface DiseaseDao {
     //添加常见病例
     int addDisease(Diseases diseases);
 
+    //编辑常见病
+    int editDisease(Diseases diseases);
+
     //根据病例id获取常见病例
     Diseases getDiseaseById(String id);
 
@@ -23,6 +26,9 @@ public interface DiseaseDao {
 
     //添加病人病例
     int addUsecase(Usercases usercases);
+
+    //编辑病人病例
+    int editUsecase(Usercases usercases);
 
     //获取某人详细病例
     Usercases getUsercaseById(String id);

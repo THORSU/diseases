@@ -279,10 +279,10 @@ public class ManagerController {
             result.setMsg("无此病例");
             return result;
         }
-        List<Usercases> usercases = diseaseService.getUsercaseByCaseId(diseases.getId());
-        for (int i = 0; i < usercases.size(); i++) {
-            diseaseService.delUsercases(usercases.get(i).getId());
-        }
+//        List<Usercases> usercases = diseaseService.getUsercaseByCaseId(diseases.getId());
+//        for (int i = 0; i < usercases.size(); i++) {
+//            diseaseService.delUsercases(usercases.get(i).getId());
+//        }
         int res = diseaseService.delDisease(id);
         if (res != 1) {
             result.setCode("1");

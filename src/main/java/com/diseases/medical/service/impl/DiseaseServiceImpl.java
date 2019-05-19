@@ -25,6 +25,11 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
+    public int editDisease(Diseases diseases) {
+        return diseaseDao.editDisease(diseases);
+    }
+
+    @Override
     public Diseases getDiseaseById(String id) {
         return diseaseDao.getDiseaseById(id);
     }
@@ -37,6 +42,11 @@ public class DiseaseServiceImpl implements DiseaseService {
     @Override
     public int addUsecase(Usercases usercases) {
         return diseaseDao.addUsecase(usercases);
+    }
+
+    @Override
+    public int editUsecase(Usercases usercases) {
+        return diseaseDao.editUsecase(usercases);
     }
 
     @Override
