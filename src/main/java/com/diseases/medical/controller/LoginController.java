@@ -184,9 +184,9 @@ public class LoginController {
             doctor.setName(username);
             doctor.setPassword(password);
             Doctor res = loginService.doctorLogin(doctor);
-            res.setStatus("doctor");
             if (null != res) {
                 if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
+                    res.setStatus("doctor");
                     result.setMsg("登录成功");
                     result.setCode("0");
                     result.setData(res);
