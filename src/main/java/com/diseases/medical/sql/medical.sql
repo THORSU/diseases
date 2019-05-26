@@ -80,8 +80,8 @@ CREATE TABLE `diseases`
 (
     `id`           VARCHAR(255) NOT NULL PRIMARY KEY COMMENT '主键',
     `diseasesName` VARCHAR(255) NULL COMMENT '病名',
-    `diseases`     VARCHAR(255) NULL COMMENT '病名症状',
-    `prevention`   VARCHAR(255) NULL COMMENT '预防方案',
+    `diseases`     TEXT(0)      NULL COMMENT '病名症状',
+    `prevention`   TEXT(0)      NULL COMMENT '预防方案',
     `status`       VARCHAR(255) NULL COMMENT '状态',
     `time`         VARCHAR(255) NULL COMMENT '创建时间'
 ) ENGINE = MyISAM
@@ -96,10 +96,10 @@ CREATE TABLE `usercases`
     `casesid`   VARCHAR(255) NULL COMMENT '病例id',
     `title`     VARCHAR(255) NULL COMMENT '标题',
     `patients`  VARCHAR(255) NULL COMMENT '患者名',
-    `symptoms`  VARCHAR(255) NULL COMMENT '患者症状',
-    `among`     VARCHAR(255) NULL COMMENT '化验单',
-    `diagnosis` VARCHAR(255) NULL COMMENT '病情诊断',
-    `advice`    VARCHAR(255) NULL COMMENT '医嘱',
+    `symptoms`  TEXT(0)      NULL COMMENT '患者症状',
+    `among`     TEXT(0)      NULL COMMENT '化验单',
+    `diagnosis` TEXT(0)      NULL COMMENT '病情诊断',
+    `advice`    TEXT(0)      NULL COMMENT '医嘱',
     `status`    VARCHAR(255) NULL COMMENT '状态',
     `time`      VARCHAR(255) NULL COMMENT '创建时间'
 ) ENGINE = MyISAM
