@@ -159,9 +159,9 @@ public class LoginController {
             user.setName(username);
             user.setPassword(password);
             User res = loginService.userLogin(user);
-            res.setStatus("user");
             if (null != res) {
                 if (res.getPassword().equals(password) && ("1").equals(res.getStatus())) {
+                    res.setStatus("user");
                     result.setMsg("登录成功");
                     result.setCode("0");
                     result.setData(res);

@@ -12,7 +12,6 @@ import com.diseases.medical.utils.Result;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,13 +38,22 @@ public class NoteController {
      *
      * @return
      */
-    @GetMapping("/getPublicNote")
-    public Object getPublicNote() {
+    @PostMapping("/getPublicNote")
+    public Object getPublicNote(HttpServletRequest request) {
         result = new Result();
-        result.setCode("0");
-        result.setMsg("帖子列表");
-        result.setData(noteService.getNoteList());
-        return result;
+        //帖子类型
+        String type = request.getParameter("note_type");
+        if (StringUtils.isEmpty(type)) {
+            result.setCode("0");
+            result.setMsg("帖子列表");
+            result.setData(noteService.getNoteList());
+            return result;
+        } else {
+            result.setCode("0");
+            result.setMsg("帖子列表");
+            result.setData(noteService.getNoteByType(type));
+            return result;
+        }
     }
 
 
@@ -127,16 +135,16 @@ public class NoteController {
             }
             //发帖人id
             noteVo.setId(note.getId());
-            //发帖人的类型
-            noteVo.setUser_type(note.getUser_type());
+            //发帖人
+            noteVo.setName(name);
+            //发帖人用户身份
+            noteVo.setUser_type(name_type);
             //帖子id
             noteVo.setNote_id(note.getNote_id());
             //帖子发表时间
             noteVo.setRelease_time(note.getRelease_time());
-            //发帖人
-            noteVo.setName(name);
             //发帖用户身份
-            noteVo.setNote_type(name_type);
+            noteVo.setNote_type(note.getNote_type());
             //帖子内容
             noteVo.setNote_content(note.getNote_content());
             //帖子评论数
