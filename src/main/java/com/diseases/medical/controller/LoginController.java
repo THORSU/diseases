@@ -31,9 +31,11 @@ public class LoginController {
 
     private Result result;
 
+    //图片存储的真实路径
     @Value("${save_path}")
     private String savePath;
 
+    //存到SQL数据库里面的路径
     @Value("${sql_path}")
     private String sqlPath;
 
@@ -53,7 +55,7 @@ public class LoginController {
         String password = request.getParameter("password");
         String userType = request.getParameter("userType");
         String mobile = request.getParameter("mobile");
-        //img
+        //图片img
         String imgStr = request.getParameter("file");
         StringBuffer fileName = new StringBuffer();
         fileName.append(UUID.randomUUID().toString().replaceAll("-", ""));
@@ -105,9 +107,12 @@ public class LoginController {
                 result.setMsg("已注册");
                 return result;
             }
+            //开始上传
             File file = new File(savePath, fileName.toString());
+            //base64先解秘
             byte[] fileBytes = Base64.getDecoder().decode(imgStr);
             try {
+                //java io 写入照片到指定路径
                 FileUtils.writeByteArrayToFile(file, fileBytes);
             } catch (IOException e) {
                 e.printStackTrace();

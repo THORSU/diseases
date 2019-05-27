@@ -184,6 +184,7 @@ public class NoteController {
         String type = request.getParameter("user_type");
 
         try {
+            //发评论
             Note n = noteService.getNoteById(note_id);
             Note_Comment nc = new Note_Comment();
             nc.setNote_comment_id("nc" + GenerateSequenceUtil.generateSequenceNo());
@@ -193,9 +194,11 @@ public class NoteController {
             nc.setUser_type(type);
             nc.setId(id);
             nc.setStatus("1");
+            //插评论
             noteService.saveComment(nc);
             //评论数+1
             n.setNote_comment_counts(String.valueOf(Integer.parseInt(n.getNote_comment_counts()) + 1));
+            //更新评论数
             noteService.updateNote(n);
             result.setCode("0");
             result.setMsg("评论成功");
@@ -225,16 +228,28 @@ public class NoteController {
         String user_type = request.getParameter("user_type");
         //帖子类型
         String type = request.getParameter("note_type");
+
+        //初始化一个帖子对象
         Note nt = new Note();
+        //表主键
         nt.setNote_id("note" + GenerateSequenceUtil.generateSequenceNo());
+        //发帖人id
         nt.setId(id);
+        //帖子标题
         nt.setTitle(title);
+        //发帖时间
         nt.setRelease_time(DataUtil.currentDate("yyyy-MM-dd  HH:mm:ss"));
+        //帖子类型
         nt.setNote_type(type);
+        //评论数
         nt.setNote_comment_counts("0");
+        //点赞数
         nt.setNote_likes("0");
+        //帖子内容
         nt.setNote_content(note_content);
+        //发帖人类型
         nt.setUser_type(user_type);
+        //状态位（1：未删除，0:已删除）
         nt.setStatus("1");
         int res = noteService.saveNote(nt);
         logger.info("帖子基本信息插入成功！");

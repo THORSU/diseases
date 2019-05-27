@@ -22,11 +22,6 @@
         insert into note_comment (note_comment_id, note_id,id, note_comment_content,note_comment_release_time,user_type,status)
         values(#{note_comment_id},#{note_id},#{id},#{note_comment_content},#{note_comment_release_time},#{user_type},#{status});
     </insert>
-    <!--添加文章-->
-    <insert id="saveNote" parameterType="com.diseases.medical.pojo.Note">
-        insert into note (note_id, id,release_time, note_type,note_content,note_likes,note_comment_counts,user_type,title,status)
-        values(#{note_id},#{id},#{release_time},#{note_type},#{note_content},#{note_likes},#{note_comment_counts},#{user_type},#{title},#{status});
-    </insert>
 
     <select id="getNoteCommentById" resultMap="notecomment">
         select * from `note_comment` where note_comment_id = #{commentId} and status = 1
